@@ -11,14 +11,27 @@ For both R scripts, a file containing recombination information is needed. The s
 
 ANGSD needs to be run to obtain a .mafs file containing information on major and minor alleles. To obtain this, a version of this
 
-	./angsd -bam -ref -anc -doMaf -doMajorMinor -rf -GL -out
+	./angsd -bam bamlist.txt -ref ref.fa -anc anc.fa -doMaf 1 -doMajorMinor 1 -rf regions.txt -GL 1 -out outfile
 
-needs to be run.  Reference and/or ancestral fastas may or may not be utilized. There are a few options for the `-doMaf` argument:
+needs to be run.  Reference and/or ancestral fastas may or may not be utilized. There are a few options for each argument:
+
+`-doMaf` 
 * 0 (Calculate persite frequencies '.mafs.gz')
 * 1: Frequency (fixed major and minor)
 * 2: Frequency (fixed major unknown minor)
 * 4: Frequency from genotype probabilities
 * 8: AlleleCounts based method (known major minor)  
+
+`-doMajorMinor`
+* 1: Infer major and minor from GL
+* 2: Infer major and minor from allele counts
+* 3: use major and minor from a file (requires -sites file.txt)
+* 4: Use reference allele as major (requires -ref)
+* 5: Use ancestral allele as major (requires -anc)
+
+For `-GL`, use option `1`.
+
+The options are optional filtering options,
 
 The correct option for your data should be chosen. The Python and R code explained below use different `-doMaf` arguments, and need to be adjusted depending on which argument you choose. Future analyses for the rice gene flow project will be using `-doMaf 4` and the code presented here will be adjusted as needed.  
 Regions may be chosen (i.e. calculate mafs for only a subset of chromosomes as in `-r 1:` or basepairs `-r chr1:1-10000`) or the entire genome may be used. For best results and no hang ups, it seems that suppyling a regions file with the desired chromosomes (even all chromosomes) works the best e.g. `-rf filename`. An example regions file can be found in __Scripts/__. A set of bams should be provided as a bamlist file (example in __Scripts/__).
