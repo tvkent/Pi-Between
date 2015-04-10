@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#python pib.py
+python pib.py
 
 cd ../Results
 
