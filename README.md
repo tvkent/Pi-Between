@@ -11,7 +11,7 @@ For both R scripts, a file containing recombination information is needed. The s
 
 ANGSD needs to be run to obtain a .mafs file containing information on major and minor alleles. To obtain this, a version of this
 
-	$ANGSD/angsd -bam bamlist.txt -ref ref.fa -anc anc.fa -nInd 4 -doMaf 1 -doMajorMinor 1 -rf regions.txt -GL 1 -P 4 -out ./Results/outfile
+	$ANGSD/angsd -bam bamlist.txt -ref ref.fa -anc anc.fa -nInd 4 -indF F.txt -doMaf 1 -doMajorMinor 1 -rf regions.txt -GL 1 -P 4 -out ./Results/outfile
 
 needs to be run.  Reference and/or ancestral fastas may or may not be utilized. There are a few options for each argument:
 
@@ -37,12 +37,16 @@ needs to be run.  Reference and/or ancestral fastas may or may not be utilized. 
 
 `-nInd` is the number of individuals you have in your bamlist (number of diploid genomes).
 
+`-indF` is a file containing inbreeding values for each individual in the order of the bamlist individuals (example in __Scripts/__). These can be estimated with [ngsF](https://github.com/fgvieira/ngsF).
+
+`-ref` is a reference fasta and `-anc` is an ancestral fasta.  Both are optional unless other arguments specify their requirement.
+
 `-P` is the numbers of cores to use during your analysis (number of threads).
 
 There are optional filtering options: `-minQ`, `-minMapQ`, `-baq`, `-pest`, `-uniqueOnly`, and others.  Please see the [documentation](http://popgen.dk/angsd/index.php/Filters) for details on these.
 
 The correct option for your data should be chosen. The Python and R code explained below use different `-doMaf` arguments, and need to be adjusted depending on which argument you choose. Future analyses for the rice gene flow project will be using `-doMaf 4` and the code presented here will be adjusted as needed.  
-Regions may be chosen (i.e. calculate mafs for only a subset of chromosomes as in `-r 1:` or basepairs `-r chr1:1-10000`) or the entire genome may be used. For best results and no hang ups, it seems that suppyling a regions file with the desired chromosomes (even all chromosomes) works the best e.g. `-rf filename`. An example regions file can be found in __Scripts/__. A set of bams should be provided as a bamlist file (example in __Scripts/__).
+Regions may be chosen (i.e. calculate mafs for only a subset of chromosomes as in `-r 1:` or basepairs `-r chr1:1-10000`) or the entire genome may be used. For best results and no hang ups, it seems that suppyling a regions file with the desired chromosomes (even all chromosomes) works the best e.g. `-rf filename`. An example regions file can be found in __Scripts/__. A set of bams should be provided as a bamlist file using `-bam` (example in __Scripts/__).
 
 ### Python Version
 
