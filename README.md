@@ -4,14 +4,14 @@ Using ANGSD and Python/R to calculate and plot pi-between in windows along the g
 
 ### Background
 
-This analysis borrows a method from [Brandvain and Sweigart et al.](http://journals.plos.org/plosgenetics/article?id=10.1371/journal.pgen.1004410) to test for selection against gene flow using correlation between diversity between populations and recombination rate across the genome. These scripts should provide the necessary information to modify the process for different projects. These scripts are used in [this](https://github.com/SidBhadra-Lobo/Rice_project) project.
+This analysis borrows a method from [Brandvain and Sweigart et al.](http://journals.plos.org/plosgenetics/article?id=10.1371/journal.pgen.1004410) to test for selection against gene flow using correlation between diversity between populations and recombination rate across the genome. These scripts should provide the necessary information to modify the process for different projects. These scripts are used in [this](https://github.com/SidBhadra-Lobo/Rice_project) project in an effort to show evidence for selection against gene flow.
 For both R scripts, a file containing recombination information is needed. The scripts use .RData information from [Corbett-Detig et al.](https://github.com/tsackton/linked-selection). Original R code and explanations from Jeff Ross-Ibarra can be found [here](http://rpubs.com/rossibarra/62904). Jeff's version uses minor allele frequency data from SNPs using VCFtools. This version uses whole genome NGS data including invariant sites to obtain minor allele frequency data using [ANGSD](http://popgen.dk/wiki/index.php/ANGSD).
 
 ### ANGSD
 
 ANGSD needs to be run to obtain a .mafs file containing information on major and minor alleles. To obtain this, a version of this
 
-	./angsd -bam bamlist.txt -ref ref.fa -anc anc.fa -doMaf 1 -doMajorMinor 1 -rf regions.txt -GL 1 -out outfile
+	$ANGSD/angsd -bam bamlist.txt -ref ref.fa -anc anc.fa -nInd 4 -doMaf 1 -doMajorMinor 1 -rf regions.txt -GL 1 -P 4 -out ./Results/outfile
 
 needs to be run.  Reference and/or ancestral fastas may or may not be utilized. There are a few options for each argument:
 
@@ -29,9 +29,17 @@ needs to be run.  Reference and/or ancestral fastas may or may not be utilized. 
 * 4: Use reference allele as major (requires -ref)
 * 5: Use ancestral allele as major (requires -anc)
 
-For `-GL`, use option `1`.
+`-GL` only needs to be used if you use `-doMajorMinor 1` (which I used). I've been using `-GL 2`, but options are:
+* 1: SAMtools
+* 2: GATK
+* 3: SOAPsnp
+* 4: SYK
 
-The options are optional filtering options,
+`-nInd` is the number of individuals you have in your bamlist (number of diploid genomes).
+
+`-P` is the numbers of cores to use during your analysis (number of threads).
+
+There are optional filtering options: `-minQ`, `-minMapQ`, `-baq`, `-pest`, `-uniqueOnly`, and others.  Please see the [documentation](http://popgen.dk/angsd/index.php/Filters) for details on these.
 
 The correct option for your data should be chosen. The Python and R code explained below use different `-doMaf` arguments, and need to be adjusted depending on which argument you choose. Future analyses for the rice gene flow project will be using `-doMaf 4` and the code presented here will be adjusted as needed.  
 Regions may be chosen (i.e. calculate mafs for only a subset of chromosomes as in `-r 1:` or basepairs `-r chr1:1-10000`) or the entire genome may be used. For best results and no hang ups, it seems that suppyling a regions file with the desired chromosomes (even all chromosomes) works the best e.g. `-rf filename`. An example regions file can be found in __Scripts/__. A set of bams should be provided as a bamlist file (example in __Scripts/__).
