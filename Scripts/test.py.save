@@ -1,0 +1,9 @@
+#import pandas as pd
+#import numpy as np
+# allo vs indica
+for n in range(1,13):
+	input1="../Results/alloc"+str(n)+"_Diversity.mafs.gz"
+	input3="../Results/indic"+str(n)+"_Diversity.mafs.gz"
+	out1="../Results/ai_"+str(n)+".txt"
+	
+	
