@@ -1,4 +1,0 @@
-/group/jrigrp5/ECL298/alignments/og_indica_bams/Sorted/og175.sorted.bam
-/group/jrigrp5/ECL298/alignments/og_indica_bams/Sorted/og176.sorted.bam
-/group/jrigrp5/ECL298/alignments/og_indica_bams/Sorted/og177.sorted.bam
-/group/jrigrp5/ECL298/alignments/og_indica_bams/Sorted/og179.sorted.bam
