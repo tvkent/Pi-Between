@@ -4,7 +4,7 @@ Using ANGSD and Python/R to calculate and plot pi-between in windows along the g
 
 ### Background
 
-This analysis borrows a method from [Brandvain and Sweigart et al.](http://journals.plos.org/plosgenetics/article?id=10.1371/journal.pgen.1004410) to test for selection against gene flow using correlation between diversity between populations and recombination rate across the genome. These scripts should provide the necessary information to modify the process for different projects. These scripts are used in [this](https://github.com/SidBhadra-Lobo/Rice_project) project in an effort to show evidence for selection against gene flow.
+This analysis borrows a method from [Brandvain and Kenney et al.](http://journals.plos.org/plosgenetics/article?id=10.1371/journal.pgen.1004410) to test for selection against gene flow using correlation between diversity between populations and recombination rate across the genome. These scripts should provide the necessary information to modify the process for different projects. These scripts are used in [this](https://github.com/SidBhadra-Lobo/Rice_project) project in an effort to show evidence for selection against gene flow.
 For both R scripts, a file containing recombination information is needed. The scripts use .RData information from [Corbett-Detig et al.](https://github.com/tsackton/linked-selection). Original R code and explanations from Jeff Ross-Ibarra can be found [here](http://rpubs.com/rossibarra/62904). Jeff's version uses minor allele frequency data from SNPs using VCFtools. This version uses whole genome NGS data including invariant sites to obtain minor allele frequency data using [ANGSD](http://popgen.dk/wiki/index.php/ANGSD).
 
 ### ANGSD
