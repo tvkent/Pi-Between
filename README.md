@@ -5,9 +5,11 @@ Using ANGSD and Python/R to calculate and plot pi-between in windows along the g
 ### Background
 
 This analysis borrows a method from [Brandvain and Kenney et al.](http://journals.plos.org/plosgenetics/article?id=10.1371/journal.pgen.1004410) to test for selection against gene flow using correlation between diversity between populations and recombination rate across the genome. These scripts should provide the necessary information to modify the process for different projects. These scripts are used in [this](https://github.com/SidBhadra-Lobo/Rice_project) project in an effort to show evidence for selection against gene flow.
-For both R scripts, a file containing recombination information is needed. The scripts use .RData information from [Corbett-Detig et al.](https://github.com/tsackton/linked-selection). Original R code and explanations from Jeff Ross-Ibarra can be found [here](http://rpubs.com/rossibarra/62904). Jeff's version uses minor allele frequency data from SNPs using VCFtools. This version uses whole genome NGS data including invariant sites to obtain minor allele frequency data using [ANGSD](http://popgen.dk/wiki/index.php/ANGSD).
+For both R scripts, a file containing recombination information is needed. The scripts use .RData information from [Corbett-Detig et al.](https://github.com/tsackton/linked-selection). Original R code and explanations from Jeff Ross-Ibarra can be found [here](http://rpubs.com/rossibarra/62904). Jeff's version uses minor allele frequency data from SNPs using VCFtools. This version uses whole genome NGS data including invariant sites to obtain minor allele frequency data via probablistic methods using [ANGSD](http://popgen.dk/wiki/index.php/ANGSD).
 
 ### ANGSD
+
+**NOTE:** this describes using and older version of ANGSD (version 0.6 I think) contained in [angsd-wrapper](https://github.com/adurvasula/angsd-wrapper). The current version of ANGSD uses indexing, not region selecting. Please see [ANGSD](http://popgen.dk/wiki/index.php/ANGSD) for current documentation if you use the updated version of ANGSD.
 
 ANGSD needs to be run to obtain a .mafs file containing information on major and minor alleles. To obtain this, a version of this
 
@@ -45,7 +47,8 @@ needs to be run.  Reference and/or ancestral fastas may or may not be utilized. 
 
 There are optional filtering options: `-minQ`, `-minMapQ`, `-baq`, `-pest`, `-uniqueOnly`, and others.  Please see the [documentation](http://popgen.dk/angsd/index.php/Filters) for details on these.
 
-The correct option for your data should be chosen. The Python and R code explained below use different `-doMaf` arguments, and need to be adjusted depending on which argument you choose. Future analyses for the rice gene flow project will be using `-doMaf 4` and the code presented here will be adjusted as needed.  
+The correct option for your data should be chosen. The Python and R code explained below use different `-doMaf` arguments, and need to be adjusted depending on which argument you choose.
+
 Regions may be chosen (i.e. calculate mafs for only a subset of chromosomes as in `-r 1:` or basepairs `-r chr1:1-10000`) or the entire genome may be used. For best results and no hang ups, it seems that suppyling a regions file with the desired chromosomes (even all chromosomes) works the best e.g. `-rf filename`. An example regions file can be found in __Scripts/__. A set of bams should be provided as a bamlist file using `-bam` (example in __Scripts/__).
 
 ### Python Version
